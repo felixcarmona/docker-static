@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  nginx:
+    container_name: ${DOMAIN}_nginx
+    build:
+      context: ./services/nginx
+      args:
+        NGINX_VERSION: ${NGINX_VERSION}
+    environment:
+      VIRTUAL_HOST: ${DOMAIN},www.${DOMAIN}
+    restart: always
+    volumes:
+      - ./webs/${DOMAIN}:/code

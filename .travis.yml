@@ -1,0 +1,29 @@
+sudo: required
+
+language: bash
+
+services:
+  - docker
+
+addons:
+  hosts:
+    - one.example.com
+    - www.one.example.com
+    - two.example.com
+    - www.two.example.com
+
+before_install:
+  - sudo add-apt-repository ppa:duggan/bats --yes
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq bats
+
+install:
+  - sudo make nginx-proxy-start
+  - sudo make test-setup
+
+script:
+  - make test
+
+branches:
+  only:
+  - master
